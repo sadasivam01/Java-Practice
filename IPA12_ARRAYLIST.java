@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class IPA12{
+public class IPA12_ARRAYLIST{
 	public static void main(String[] args){
 	Scanner sc = new Scanner(System.in);
 	int n = sc.nextInt();
