@@ -1,0 +1,98 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static void main(String args[] ) throws Exception {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Journalist[] Journals = new Journalist[n];
+        for(int i=0;i<n;i++){
+            int id = sc.nextInt();
+            sc.nextLine();
+            String name = sc.nextLine();
+            int exp = sc.nextInt();
+            sc.nextLine();
+            String region = sc.nextLine();
+            Journals[i] = new Journalist(id, name, exp, region);
+        }
+        String search = sc.nextLine();
+        double avg = findAverageExperienceByRegion(Journals, search);
+        if(avg==0) System.out.println("No Journalist found from the given region.");
+        else System.out.printf("Average experience: %.1f\n",avg);
+        
+        int sId = sc.nextInt();
+        Journalist SearchId = searchJournalistById(Journals, sId);
+        if(SearchId == null) System.out.println("No Journalist found with the given id.");
+        else{
+            System.out.println("id-"+SearchId.getid());
+            System.out.println("name-"+SearchId.getname());
+            System.out.println("experience-"+SearchId.getexperience());
+            System.out.println("region-"+SearchId.getregion());
+        }
+        
+    }
+    public static double findAverageExperienceByRegion(Journalist[] Journals, String search){
+        int count = 0;
+        int sum = 0;
+        for(Journalist j : Journals){
+            if(j.getregion().equalsIgnoreCase(search)){
+                count++;
+                sum+=j.getexperience();
+            }
+        }
+        if(count==0) return 0;
+        double avg = (double) sum/count;
+        return avg;
+    }
+    
+    public static Journalist searchJournalistById(Journalist[] Journals, int sId){
+        for(Journalist j : Journals){
+            if(sId == j.getid()){
+                return j;
+            }
+        }
+        return null;
+    }
+    
+}
+
+class Journalist{
+    private int id, experience;
+    private String name, region;
+    public Journalist(int id, String name,int experience, String region){
+        this.id = id;
+        this.name = name;
+        this.experience = experience;
+        this.region = region;
+    }
+    
+    public int getid(){
+        return id;
+    }
+    public void setid(int id){
+        this.id=id;
+    }
+    public String getname(){
+        return name;
+    }
+    public void setname(String name){
+        this.name=name;
+    }
+    public int getexperience(){
+        return experience;
+    }
+    public void setexperience(int experience){
+        this.experience=experience;
+    }
+    public String getregion(){
+        return region;
+    }
+    public void setregion(String region){
+        this.region=region;
+    }
+    
+}
