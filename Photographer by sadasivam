@@ -1,0 +1,97 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static void main(String args[]) throws Exception {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Photographer[] photograph = new Photographer[n];
+        for(int i=0;i<n;i++){
+            int id = sc.nextInt();
+            sc.nextLine();
+            String name = sc.nextLine();
+            String specialization = sc.nextLine();
+            double rating = sc.nextDouble();
+            sc.nextLine();
+            photograph[i] = new Photographer(id, name, specialization, rating);
+        }
+        String Specialization = sc.nextLine();
+        int count = countPhotographersBySpecialization(photograph, Specialization);
+        if(count==0) System.out.println("No photographers found for the given specialization.");
+        else System.out.println("Number of photographers in "+Specialization+": "+count);
+        
+        Photographer secondhighRating = getSecondHighestRatedPhotographer(photograph);
+        if(secondhighRating == null) System.out.println("Second highest rated photographer not available.");
+        else{
+            System.out.println("id-"+secondhighRating.getid());
+            System.out.println("name-"+secondhighRating.getname());
+            System.out.println("specialization-"+secondhighRating.getspecialization());
+            System.out.println("rating-"+secondhighRating.getrating());
+        }
+    }
+    
+    public static int countPhotographersBySpecialization(Photographer[] photograph, String Specialization){
+        int count = 0;
+        for(Photographer p : photograph){
+            if(p.getspecialization().equalsIgnoreCase(Specialization))
+            count++;
+        }
+        return count;
+    }
+    
+    public static Photographer getSecondHighestRatedPhotographer(Photographer[] photograph){
+        Photographer highest = null;
+        Photographer secondhighest = null;
+        for(Photographer p : photograph){
+            if(highest == null || p.getrating()>highest.getrating()){
+                secondhighest = highest;
+                highest = p;
+            }
+            else if(secondhighest == null || p.getrating() > secondhighest.getrating() && p.getrating() < highest.getrating()){
+                secondhighest = p;
+            }
+        }
+        return secondhighest;
+    }
+}
+
+class Photographer{
+    private int id;
+    private String name, specialization;
+    private double rating;
+    public Photographer(int id, String name, String specialization, double rating){
+        this.id = id;
+        this.name = name;
+        this.specialization = specialization;
+        this.rating = rating;
+    }
+    
+    public int getid(){
+        return id;
+    }
+    public void setid(int id){
+        this.id = id;
+    }
+    public String getname(){
+        return name;
+    }
+    public void setname(String name){
+        this.name = name;
+    }
+    public String getspecialization(){
+        return specialization;
+    }
+    public void setspecialization(String specialiString){
+        this.specialization = specialization;
+    }
+    public double getrating(){
+        return rating;
+    }
+    public void setrating(double rating){
+        this.rating = rating;
+    }
+}
