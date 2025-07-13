@@ -1,0 +1,17 @@
+import java.util.Scanner;
+public class Decimal2bin{
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int a = sc.nextInt();
+		StringBuilder sb = new StringBuilder(); //Empty string builder
+		while(a>0){
+			sb.append(a%2);
+			a/=2;
+		}
+		sb = sb.reverse();                //reverses the string
+		String temp = sb.toString();      //converts to string
+		System.out.println(temp);
+		int b = Integer.parseInt(temp,2); //converts the binary form to decimal
+		System.out.println(b);
+	}
+}
