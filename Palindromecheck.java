@@ -16,7 +16,7 @@ public class Palindromecheck{
 			String b = a.substring(i,j);
 			int l=0,r=b.length()-1,f=1;
 			while(l<r){
-				if(b[l]!=b[r]){
+				if(b[l++]!=b[r--]){
 					f=0;
 					break;
 					}
