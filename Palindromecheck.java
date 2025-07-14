@@ -12,11 +12,11 @@ public class Palindromecheck{
 	//Substring Palindrome check;
 	int n = a.length();
 	for(int i=0;i<n;i++){
-		for(int j=i+3;j<n;j++){
+		for(int j=i+3;j<=n;j++){
 			String b = a.substring(i,j);
 			int l=0,r=b.length()-1,f=1;
 			while(l<r){
-				if(b[l++]!=b[r--]){
+				if(b.charAt(l++)!=b.charAt(r--)){
 					f=0;
 					break;
 					}
