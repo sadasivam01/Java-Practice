@@ -1,0 +1,71 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static void main(String args[]) throws Exception {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Vehicle veh[] = new Vehicle[n];
+        for(int i=0;i<n;i++){
+            int rno = sc.nextInt();
+            int quantity = sc.nextInt();
+            sc.nextLine();
+            String typ = sc.nextLine();
+            String brand = sc.nextLine();
+            veh[i] = new Vehicle(rno, quantity, typ, brand);
+        }
+        String s = sc.nextLine();
+        int r = getAvg(veh, s);
+        if(r==0) System.out.println("No vehicles found for the given type");
+        else System.out.println(r);
+        String pre = sc.nextLine();
+        Vehicle ve = getpre(veh, pre);
+        if(ve == null) System.out.println("No vehicle found with the given brand prefix");
+        else System.out.println(ve.getrno()+"-"+ve.getquantity()+"-"+ve.gettyp()+"-"+ve.getbrand());
+    }
+    public static int getAvg(Vehicle[] veh, String typ){
+        int count = 0, sum =0;
+        for(Vehicle v : veh){
+            if(v.gettyp().equalsIgnoreCase(typ)){
+                count++;
+                sum += v.getquantity();
+            }
+        }
+        if(count ==0) return 0;
+        sum /= count;
+        return sum;
+    }
+    public static Vehicle getpre(Vehicle[] veh, String pre){
+        Vehicle ve = null;
+        for(Vehicle v:veh){
+            if(v.getbrand().startsWith(pre)) ve = v;
+        }
+        return ve;
+    }
+}
+class Vehicle{
+    private int rno,quantity;
+    private String typ, brand;
+    Vehicle(int rno, int quantity, String typ, String brand){
+        this.rno = rno;
+        this.quantity = quantity;
+        this.typ = typ;
+        this.brand = brand;
+    }
+    public int getrno(){
+        return rno;
+    }
+    public int getquantity(){
+        return quantity;
+    }
+    public String gettyp(){
+        return typ;
+    }
+    public String getbrand(){
+        return brand;
+    }
+}
